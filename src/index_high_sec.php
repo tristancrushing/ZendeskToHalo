@@ -1,6 +1,8 @@
 <?php
+// index_high_sec.php
 
-require_once 'vendor/autoload.php';
+require_once 'constantsConfig.php';
+require_once '../vendor/autoload.php';
 use Tristancrushing\ZendeskToHalo\ZendeskToHalo;
 
 // Secure session initialization with strict settings
@@ -26,6 +28,16 @@ ini_set('display_errors', '0'); // Do not display errors to the client
 ini_set('log_errors', '1'); // Enable error logging
 ini_set('error_log', __DIR__ . '/logs/'.bin2hex(random_bytes(8)) .'_error_log.txt'); // Specify the error log file
 error_reporting(E_ALL); // Report all PHP errors
+
+// Strip Public Html Dir
+function stripPublicHtml(string $filePath): string
+{
+    $publicHtmlDir = $_SERVER['DOCUMENT_ROOT'];
+
+    $modifiedString = str_replace($publicHtmlDir, "", $filePath);
+
+    return $modifiedString; // Outputs: some/other/path
+}
 
 // CSRF token for form submission validation
 if (!isset($_SESSION['csrf_token'])) {
@@ -72,7 +84,7 @@ function handleSecureFileUpload(string $uploadDir, string $outputDir, string $cs
     $zendeskToHalo = new ZendeskToHalo();
     $zendeskToHalo->processExportToImport($uploadedFilePath, $haloImportFilePath);
 
-    echo '<p>Conversion successful! <a href="' . htmlspecialchars($haloImportFilePath) . '">Download Halo Import File</a></p>';
+    echo '<p>Conversion successful! <a target="_blank" href="' . htmlspecialchars(stripPublicHtml($haloImportFilePath)) . '">Download Halo Import File</a></p>';
 }
 
 // Main request handling

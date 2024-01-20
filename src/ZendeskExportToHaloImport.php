@@ -78,12 +78,11 @@ class ZendeskExportToHaloImport
 
         // Write the header row to the Halo CSV
         $headers = [
-            'RequestID', 'ClientName', 'SiteName', 'Username', 'Summary', 'Details',
-            'DateOccurred', 'Category', 'Category1', 'Category2', 'Status', 'AssignedTo',
-            'Team', 'RequestType', 'SLA', 'Priority', 'OpportunityEmailAddress',
-            'OpportunityAddress1', 'OpportunityAddress2', 'OpportunityAddress3',
+            'RequestID', 'Impact', 'Urgency', 'ClientName', 'SiteName', 'Username',
+            'Summary', 'Details', 'DateOccurred', 'Category', 'Category1', 'Category2',
+            'Status', 'AssignedTo', 'Team', 'RequestType', 'Priority',
+            'SLA', 'OpportunityEmailAddress', 'OpportunityAddress1', 'OpportunityAddress2', 'OpportunityAddress3',
             'OpportunityAddress4', 'OpportunityPostCode', 'OpportunityValue',
-            'OpportunityConversionProbability'
         ];
         fputcsv($haloFileHandle, $headers);
 

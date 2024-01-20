@@ -1,0 +1,4 @@
+src/output/*
+src/uploads/*
+src/secure_output/*
+src/secure_uploads/*

@@ -1,5 +1,4 @@
 <?php
-
 // index.php
 
 /**
@@ -9,9 +8,20 @@
  * industry standards for file uploads and processing.
  */
 
-require_once 'vendor/autoload.php'; // Include the Composer autoloader.
+require_once 'constantsConfig.php';
+require_once '../vendor/autoload.php'; // Include the Composer autoloader.
 
 use Tristancrushing\ZendeskToHalo\ZendeskToHalo; // Import the conversion class.
+
+// Strip Public Html Dir
+function stripPublicHtml(string $filePath): string
+{
+    $publicHtmlDir = $_SERVER['DOCUMENT_ROOT'];
+
+    $modifiedString = str_replace($publicHtmlDir, "", $filePath);
+
+    return $modifiedString; // Outputs: some/other/path
+}
 
 // Function to handle file upload and conversion.
 function handleFileUpload(string $uploadDir, string $outputDir): void
@@ -49,7 +59,7 @@ function handleFileUpload(string $uploadDir, string $outputDir): void
     $zendeskToHalo->processExportToImport($uploadedFilePath, $haloImportFilePath);
 
     // Success message with a link to download the new Halo import file.
-    echo '<p>Conversion successful! <a href="' . htmlspecialchars($haloImportFilePath) . '">Download Halo Import File</a></p>';
+    echo '<p>Conversion successful! <a target="_blank" href="' . htmlspecialchars(stripPublicHtml($haloImportFilePath)) . '">Download Halo Import File</a></p>';
 }
 
 // Check for a POST request indicating a file upload attempt.
