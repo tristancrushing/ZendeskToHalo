@@ -1,0 +1,17 @@
+{
+    "name": "tristancrushing/zendesk-to-halo",
+    "description": "Zendesk Ticket Export in CSV format to Halo Ticket/Actions import with Halo API",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Tristancrushing\\ZendeskToHalo\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Tristan McGowan"
+        }
+    ],
+    "require": {}
+}
