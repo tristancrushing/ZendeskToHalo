@@ -4,6 +4,27 @@ The CHANGELOG documents the history of changes, updates, and notable enhancement
 
 ---
 
+## [0.0.5] - 2024-01-20
+
+### Added
+- Expanded `.gitignore` to exclude additional directories for improved repository cleanliness.
+- Created `README.md` providing an overview of the library and a quick start guide for users.
+- Added comprehensive documentation in the `docs` folder, detailing various aspects of the library.
+- Introduced new test classes and updated the test index for expanded test coverage.
+
+### Changed
+- Made minor modifications to `ZendeskToHalo.php` for code clarity.
+- Enhanced `index.php` with improved HTML structure and styling.
+- Refined Zendesk to Halo conversion module with enhanced security, configurability, and new configurations.
+- Updated `src/ZendeskExportToHaloImport.php` for better CSV output header configuration.
+- Improved dynamic data mapping in `src/ZendeskToHaloDataMap.php`.
+- Modified `src/index.php` and `src/index_high_sec.php` to introduce `constantsConfig.php` and the `stripPublicHtml` function.
+
+### Security
+- Advanced security measures in `src/index_high_sec.php`, tailored for cybersecurity education.
+
+---
+
 ## [0.0.4] - 2024-01-20
 
 ### Added
