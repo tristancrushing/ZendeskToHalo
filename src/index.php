@@ -1,6 +1,5 @@
 <?php
 // index.php
-
 /**
  * Entry point for a web application that converts Zendesk export CSV files into a Halo import format.
  * Implements security best practices, proper validation, and error handling.
@@ -61,34 +60,61 @@ function handleFileUpload(string $uploadDir, string $outputDir): void
     // Success message with a link to download the new Halo import file.
     echo '<p>Conversion successful! <a target="_blank" href="' . htmlspecialchars(stripPublicHtml($haloImportFilePath)) . '">Download Halo Import File</a></p>';
 }
+?>
 
-// Check for a POST request indicating a file upload attempt.
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['zendeskExport'])) {
-    // Define the directories for storing uploaded and processed files.
-    $uploadDir = __DIR__ . '/uploads/';
-    $outputDir = __DIR__ . '/output/';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zendesk to Halo Conversion</title>
+    <!-- Latest compiled and minified Bootstrap CSS from CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
 
-    // Create the upload and output directories if they do not exist.
-    if (!is_dir($uploadDir) && !mkdir($uploadDir, 0755, true) && !is_dir($uploadDir)) {
-        throw new Exception('Failed to create upload directory.');
-    }
-    if (!is_dir($outputDir) && !mkdir($outputDir, 0755, true) && !is_dir($outputDir)) {
-        throw new Exception('Failed to create output directory.');
-    }
+<div class="container mt-5">
+    <h1 class="mb-4">Zendesk to Halo Conversion</h1>
 
-    try {
-        handleFileUpload($uploadDir, $outputDir);
-    } catch (Exception $e) {
-        // Handle exceptions and display an error message to the user.
-        echo '<p>Error: ' . htmlspecialchars($e->getMessage()) . '</p>';
-    }
-} else {
-    // Display the HTML form for uploading a Zendesk export CSV file.
-    ?>
-    <form method="post" enctype="multipart/form-data">
-        <label for="zendeskExport">Upload Zendesk Export CSV:</label><br>
-        <input type="file" name="zendeskExport" id="zendeskExport" required><br><br>
-        <input type="submit" value="Convert to Halo Import">
-    </form>
-    <?php
-}
+    <?php if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['zendeskExport'])): ?>
+        <?php
+        // Define the directories for storing uploaded and processed files.
+        $uploadDir = __DIR__ . '/uploads/';
+        $outputDir = __DIR__ . '/output/';
+
+        // Create the upload and output directories if they do not exist.
+        if (!is_dir($uploadDir) && !mkdir($uploadDir, 0755, true) && !is_dir($uploadDir)) {
+            throw new Exception('Failed to create upload directory.');
+        }
+        if (!is_dir($outputDir) && !mkdir($outputDir, 0755, true) && !is_dir($outputDir)) {
+            throw new Exception('Failed to create output directory.');
+        }
+
+        try {
+            handleFileUpload($uploadDir, $outputDir);
+        } catch (Exception $e) {
+            // Handle exceptions and display an error message to the user.
+            echo '<p>Error: ' . htmlspecialchars($e->getMessage()) . '</p>';
+        }
+        ?>
+    <?php else: ?>
+        <div class="card">
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data" class="form-group">
+                    <label for="zendeskExport">Upload Zendesk Export CSV:</label>
+                    <input type="file" name="zendeskExport" id="zendeskExport" class="form-control-file mb-3" required>
+                    <input type="submit" value="Convert to Halo Import" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    <?php endif; ?>
+
+</div>
+
+<!-- Bootstrap JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.7.12/umd.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

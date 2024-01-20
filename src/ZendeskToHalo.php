@@ -39,6 +39,6 @@ class ZendeskToHalo
         // Output a success message to indicate completion of the process.
         // Note: In a web application, this might be replaced with a redirect,
         // a session flash message, or a JSON response.
-        echo "The Halo import file has been successfully created and is available at the link below: <br>";
+        // echo "The Halo import file has been successfully created and is available at the link below: <br>";
     }
 }
